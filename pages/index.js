@@ -1,6 +1,8 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 
+//To Add Fragment, Optimistic Response, Extend Schema
+
 const ALL_NOTES = gql`
   query allNotes {
     getNotes {
@@ -54,7 +56,15 @@ export default function Home() {
 
   const display = data.getNotes.map((el, id) => {
     return (
-      <div style={{ margin: "10px" }} key={el.id}>
+      <div
+        style={{
+          width: "20rem",
+          border: "1px solid black",
+          marginTop: "20px",
+          marginBottom: "20px",
+        }}
+        key={el.id}
+      >
         <p>Title: {el.title}</p>
         <p>Content: {el.content}</p>
         <p>Author: {el.author}</p>
@@ -78,6 +88,7 @@ export default function Home() {
 
   return (
     <div>
+      <h3>Add Note</h3>
       <form onSubmit={handleSubmit}>
         <label>Title: </label>
         <input
@@ -99,8 +110,15 @@ export default function Home() {
         />
         <input type="submit" value="Submit" />
       </form>
-
-      {display}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+        }}
+      >
+        {display}
+      </div>
     </div>
   );
 }
