@@ -1,4 +1,7 @@
-import data from "./data";
+const fs = require("fs");
+
+let raw = fs.readFileSync("pages/api/resolvers/db.json");
+let data = JSON.parse(raw);
 
 const resolvers = {
   Query: {
@@ -18,7 +21,8 @@ const resolvers = {
         content: args.content,
         author: args.author,
       };
-      data.push(note);
+      data = [note].concat(data);
+      fs.writeFileSync("pages/api/resolvers/db.json", JSON.stringify(data));
       return note;
     },
   },
