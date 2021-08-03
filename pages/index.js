@@ -3,15 +3,22 @@ import React from "react";
 
 //To Add Fragment, Optimistic Response, Extend Schema
 
+const NOTE_DETAILS = gql`
+  fragment NoteDetails on Note {
+    id
+    title
+    author
+    content
+  }
+`;
+
 const ALL_NOTES = gql`
   query allNotes {
     getNotes {
-      id
-      title
-      author
-      content
+      ...NoteDetails
     }
   }
+  ${NOTE_DETAILS}
 `;
 
 const ADD_NOTE = gql`
@@ -25,12 +32,10 @@ const ADD_NOTE = gql`
       author: $addNoteAuthor
       content: $addNoteContent
     ) {
-      id
-      title
-      author
-      content
+      ...NoteDetails
     }
   }
+  ${NOTE_DETAILS}
 `;
 
 export default function Home() {
