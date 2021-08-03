@@ -2,6 +2,19 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { setContext } from "apollo-link-context";
 import { ApolloLink } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
+import gql from "graphql-tag";
+
+const typeDefs = gql`
+  extend type Note {
+    important: Boolean!
+  }
+`;
+
+const resolvers = {
+  Note: {
+    important: () => true,
+  },
+};
 
 const delay = setContext(
   (request) =>
@@ -21,6 +34,8 @@ const link = ApolloLink.from([delay, http]);
 const client = new ApolloClient({
   link,
   cache: new InMemoryCache(),
+  typeDefs,
+  resolvers,
 });
 
 export default client;

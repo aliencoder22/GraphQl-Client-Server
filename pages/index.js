@@ -1,14 +1,13 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 
-//To Add Optimistic Response, Extend Schema
-
 const NOTE_DETAILS = gql`
   fragment NoteDetails on Note {
     id
     title
     author
     content
+    important @client
   }
 `;
 
@@ -56,7 +55,7 @@ export default function Home() {
     },
   });
 
-  if (loading) return <h1>loading</h1>;
+  if (loading) return <h1>Loading</h1>;
   if (error) return <h1>Error</h1>;
 
   const display = data.getNotes.map((el, id) => {
@@ -73,6 +72,7 @@ export default function Home() {
         <p>Title: {el.title}</p>
         <p>Content: {el.content}</p>
         <p>Author: {el.author}</p>
+        <p>Important: {el.important ? "True" : "False"}</p>
       </div>
     );
   });
@@ -92,6 +92,7 @@ export default function Home() {
           title,
           author,
           content,
+          important: true,
         },
       },
     });
