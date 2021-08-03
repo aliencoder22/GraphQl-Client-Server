@@ -1,7 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 
-//To Add Fragment, Optimistic Response, Extend Schema
+//To Add Optimistic Response, Extend Schema
 
 const NOTE_DETAILS = gql`
   fragment NoteDetails on Note {
@@ -83,6 +83,16 @@ export default function Home() {
         addNoteTitle: title,
         addNoteAuthor: author,
         addNoteContent: content,
+      },
+      optimisticResponse: {
+        __typename: "Mutation",
+        addNote: {
+          __typename: "Note",
+          id: "abcd",
+          title,
+          author,
+          content,
+        },
       },
     });
     setTitle("");
