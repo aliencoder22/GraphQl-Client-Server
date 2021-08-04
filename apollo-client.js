@@ -29,7 +29,7 @@ const http = new HttpLink({
   uri: "http://localhost:3000/api/graphql",
 });
 
-const link = ApolloLink.from([delay, http]);
+const link = ApolloLink.from([http]);
 
 const client = new ApolloClient({
   link,

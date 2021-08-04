@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 
 const NOTE_DETAILS = gql`
@@ -43,6 +43,21 @@ export default function Home() {
   const [content, setContent] = React.useState("");
 
   const { data, loading, error } = useQuery(ALL_NOTES);
+
+  //Dynamic Query
+
+  // const fields = ["title", "id", "content"];
+
+  // const dynamicQuery = gql`
+  //   query fetchNotes{
+  //     getNotes{
+  //       ${fields.join("\n")}
+  //     }
+  //   }
+  // `;
+
+  // const client = useApolloClient();
+  // client.query({ query: dynamicQuery }).then((res) => console.log(res));
 
   const [createNote, newNote] = useMutation(ADD_NOTE, {
     update(cache, { data: { addNote } }) {
