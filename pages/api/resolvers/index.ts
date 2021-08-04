@@ -1,12 +1,19 @@
-const fs = require("fs");
+import fs from "fs";
 
-let raw = fs.readFileSync("pages/api/resolvers/db.json");
-let data = JSON.parse(raw);
+type Note = {
+  id: number;
+  title: string;
+  author: string;
+  content: string;
+};
+
+let raw = fs.readFileSync("pages/api/resolvers/db.json", "utf-8");
+let data: Note[] = JSON.parse(raw);
 
 const resolvers = {
   Query: {
     getNotes: () => data,
-    getNote(parent, args, context, info) {
+    getNote(parent, args: Pick<Note, "id">, context, info) {
       const note = data.find((el) => el.id == args.id);
       if (note === undefined)
         throw new Error(`Note with ${args.id} doesn't exist`);
@@ -14,7 +21,7 @@ const resolvers = {
     },
   },
   Mutation: {
-    addNote(parent, args, context, info) {
+    addNote(parent, args: Omit<Note, "id">, context, info) {
       let note = {
         id: data.length,
         title: args.title,

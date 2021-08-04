@@ -1,6 +1,18 @@
 import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 
+interface Notes {
+  id: number;
+  title: string;
+  author: string;
+  content: string;
+  important: boolean;
+}
+
+interface NotesData {
+  getNotes: Notes[];
+}
+
 const NOTE_DETAILS = gql`
   fragment NoteDetails on Note {
     id
@@ -42,7 +54,7 @@ export default function Home() {
   const [author, setAuthor] = React.useState("");
   const [content, setContent] = React.useState("");
 
-  const { data, loading, error } = useQuery(ALL_NOTES);
+  const { data, loading, error } = useQuery<NotesData>(ALL_NOTES);
 
   //Dynamic Query
 
