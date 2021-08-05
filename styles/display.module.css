@@ -1,0 +1,16 @@
+.item {
+  width: 20rem;
+  border: 1px solid black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.item > p {
+  padding-left: 10px;
+}

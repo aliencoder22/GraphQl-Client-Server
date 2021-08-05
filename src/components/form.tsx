@@ -1,11 +1,16 @@
 import React from "react";
+import styles from "../../styles/form.module.css";
 
-export default function Form({ handleMutation }) {
+type Props = {
+  handleMutation: (title: string, author: string, content: string) => void;
+};
+
+export default function Form({ handleMutation }: Props) {
   const [title, setTitle] = React.useState("");
   const [author, setAuthor] = React.useState("");
   const [content, setContent] = React.useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleMutation(title, author, content);
     setTitle("");
@@ -14,28 +19,44 @@ export default function Form({ handleMutation }) {
   };
 
   return (
-    <div>
-      <h3>Add Note</h3>
+    <div style={{ textAlign: "center", marginBottom: "20px" }}>
+      <h2>Add Note</h2>
+
       <form onSubmit={handleSubmit}>
-        <label>Title: </label>
-        <input
-          type="text"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-        />
-        <label>Content: </label>
-        <input
-          type="text"
-          value={content}
-          onChange={(event) => setContent(event.target.value)}
-        />
-        <label>Author: </label>
-        <input
-          type="text"
-          value={author}
-          onChange={(event) => setAuthor(event.target.value)}
-        />
-        <input type="submit" value="Submit" />
+        <ul className={styles.wrapper}>
+          <li className={styles.formRow}>
+            <label htmlFor="title">Title: </label>
+            <input
+              id="title"
+              type="text"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            />
+          </li>
+          <li className={styles.formRow}>
+            <label htmlFor="content">Content: </label>
+            <input
+              id="content"
+              type="text"
+              value={content}
+              onChange={(event) => setContent(event.target.value)}
+            />
+          </li>
+          <li className={styles.formRow}>
+            <label htmlFor="author">Author: </label>
+            <input
+              id="author"
+              type="text"
+              value={author}
+              onChange={(event) => setAuthor(event.target.value)}
+            />
+          </li>
+          <li className={styles.formRow}>
+            <button className={styles.button} type="submit">
+              Submit
+            </button>
+          </li>
+        </ul>
       </form>
     </div>
   );

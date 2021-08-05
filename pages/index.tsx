@@ -4,17 +4,17 @@ import Display from "../src/components/display";
 import Form from "../src/components/form";
 import * as queries from "../src/queries";
 
-interface Notes {
+type Notes = {
   id: number;
   title: string;
   author: string;
   content: string;
   important: boolean;
-}
+};
 
-interface NotesData {
+type NotesData = {
   getNotes: Notes[];
-}
+};
 
 export default function Home() {
   const { data, loading, error } = useQuery<NotesData>(queries.ALL_NOTES);

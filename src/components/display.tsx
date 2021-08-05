@@ -1,15 +1,21 @@
-export default function Display({ data }) {
+import styles from "../../styles/display.module.css";
+
+type Notes = {
+  id: number;
+  title: string;
+  author: string;
+  content: string;
+  important: boolean;
+};
+
+type Props = {
+  data: { getNotes: Notes[] };
+};
+
+export default function Display({ data }: Props) {
   const display = data.getNotes.map((el, id) => {
     return (
-      <div
-        style={{
-          width: "20rem",
-          border: "1px solid black",
-          marginTop: "20px",
-          marginBottom: "20px",
-        }}
-        key={el.id}
-      >
+      <div className={styles.item} key={el.id}>
         <p>Title: {el.title}</p>
         <p>Content: {el.content}</p>
         <p>Author: {el.author}</p>
@@ -18,15 +24,5 @@ export default function Display({ data }) {
     );
   });
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "space-around",
-      }}
-    >
-      {display}
-    </div>
-  );
+  return <div className={styles.wrapper}>{display}</div>;
 }

@@ -1,0 +1,30 @@
+.wrapper {
+  background-color: whitesmoke;
+  list-style-type: none;
+  padding: 0;
+  border-radius: 3px;
+}
+.formRow {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5em;
+}
+.formRow > label {
+  padding: 0.5em 1em 0.5em 0;
+}
+.formRow > input {
+  flex: 1;
+}
+.formRow > input,
+.formRow > button {
+  padding: 0.5em;
+}
+.formRow > button {
+  background: gray;
+  color: white;
+  border: 0;
+}
+
+.button:hover {
+  cursor: pointer;
+}
